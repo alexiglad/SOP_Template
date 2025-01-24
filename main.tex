@@ -1,0 +1,328 @@
+\documentclass[11pt]{article}
+
+% --------------------------------------------------------------------------
+% PAGE/LAYOUT SETUP
+% --------------------------------------------------------------------------
+\usepackage[a4paper, left=0.92in, right=0.92in, top=0.8in, bottom=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[backend=biber, maxbibnames=100]{biblatex}
+\usepackage{xstring}  % For string comparison
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+% --------------------------------------------------------------------------
+% SCHOOL SELECTION LOGIC
+% --------------------------------------------------------------------------
+%
+% INSTRUCTIONS:
+% 1) Set \setcounter{schoolID}{X} to the desired school ID from the list below.
+% 2) Then, compile. The commands \schoolname and \schoolabbreviation will be
+%    set accordingly.
+% 3) The case blocks below let you customize any text you want for each school.
+%    Replace the placeholders with your own text as needed.
+%
+% Mappings (can add additional very easily):
+%  1 - University of California, Berkeley
+%  2 - Stanford University
+%  3 - Massachusetts Institute of Technology
+%  4 - Carnegie Mellon University
+%  5 - Georgia Institute of Technology
+%  6 - New York University
+%  7 - Columbia University
+%  8 - Cornell University
+%  9 - University of Washington
+%  10 - University of Illinois at Urbana-Champaign
+%  11 - University of California, San Diego
+%  12 - Rice University
+% --------------------------------------------------------------------------
+
+\newcounter{schoolID}
+\setcounter{schoolID}{1}  % <-- CHANGE THIS TO YOUR DESIRED SCHOOL ID
+
+\ifcase\value{schoolID}
+   % Case 0: If no school ID is selected, define default placeholders
+   \newcommand{\schoolname}{[School Name]}
+   \newcommand{\schoolabbreviation}{[Abbreviation]}
+\or
+   % Case 1: Berkeley
+   \newcommand{\schoolname}{University of California, Berkeley}
+   \newcommand{\schoolabbreviation}{UCB}
+\or
+   % Case 2: Stanford
+   \newcommand{\schoolname}{Stanford University}
+   \newcommand{\schoolabbreviation}{Stanford}
+\or
+   % Case 3: MIT
+   \newcommand{\schoolname}{Massachusetts Institute of Technology}
+   \newcommand{\schoolabbreviation}{MIT}
+\or
+   % Case 4: CMU
+   \newcommand{\schoolname}{Carnegie Mellon University}
+   \newcommand{\schoolabbreviation}{CMU}
+\or
+   % Case 5: Georgia Tech
+   \newcommand{\schoolname}{Georgia Institute of Technology}
+   \newcommand{\schoolabbreviation}{GT}
+\or
+   % Case 6: NYU
+   \newcommand{\schoolname}{New York University}
+   \newcommand{\schoolabbreviation}{NYU}
+\or
+   % Case 7: Columbia
+   \newcommand{\schoolname}{Columbia University}
+   \newcommand{\schoolabbreviation}{Columbia}
+\or
+   % Case 8: Cornell
+   \newcommand{\schoolname}{Cornell University}
+   \newcommand{\schoolabbreviation}{Cornell}
+\or
+   % Case 9: UW
+   \newcommand{\schoolname}{University of Washington}
+   \newcommand{\schoolabbreviation}{UW}
+\or
+   % Case 10: UIUC
+   \newcommand{\schoolname}{University of Illinois at Urbana-Champaign}
+   \newcommand{\schoolabbreviation}{UIUC}
+\or
+   % Case 11: UCSD
+   \newcommand{\schoolname}{University of California, San Diego}
+   \newcommand{\schoolabbreviation}{UCSD}
+\or
+   % Case 12: Rice
+   \newcommand{\schoolname}{Rice University}
+   \newcommand{\schoolabbreviation}{Rice}
+\else
+   % Else case: If schoolID is out of range
+   \newcommand{\schoolname}{[School Name]}
+   \newcommand{\schoolabbreviation}{[Abbreviation]}
+\fi
+
+% --------------------------------------------------------------------------
+% BIBLIOGRAPHY SETUP
+% --------------------------------------------------------------------------
+\addbibresource{references.bib}
+
+% --------------------------------------------------------------------------
+% HEADER & FOOTER
+% --------------------------------------------------------------------------
+%
+
+% --------------------------------------------------------------------------
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{[Your Name]}
+\chead{\textbf{[Document Title]}}
+\rhead{\href{https://[YourWebsite]}{[YourWebsite]}}
+\rfoot{\thepage}
+
+% --------------------------------------------------------------------------
+% OPTIONAL: BOLD YOUR NAME IN REFERENCES
+% --------------------------------------------------------------------------
+%
+% If you want your name to be bold in references, set your family/given name
+% below. Otherwise, you can remove or comment out this logic entirely.
+% --------------------------------------------------------------------------
+\DeclareNameFormat{bold}{%
+  \ifthenelse{\equal{\namepartfamily}{[YourLastName]} \AND
+              \equal{\namepartgiven}{[YourFirstName]}}
+    {\textbf{\namepartgiven\space\namepartfamily}} % Bold your name
+    {\namepartgiven\space\namepartfamily}          % Others' names normal
+  \ifthenelse{\value{listcount}<\value{liststop}}{\addcomma\space}{}%
+}
+
+% --------------------------------------------------------------------------
+% OPTIONAL: FORMATTING FOR DATES, TITLES, ETC. IN BIB ENTRIES
+% --------------------------------------------------------------------------
+\DeclareFieldFormat{biblabeldate}{\mkbibbold{#1}}
+% \DeclareFieldFormat*{title}{\mkbibitalic{#1}}
+
+% --------------------------------------------------------------------------
+% CUSTOM BIBLIOGRAPHY DRIVERS
+% --------------------------------------------------------------------------
+\DeclareBibliographyDriver{article}{%
+  \printnames[bold]{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{journaltitle}%
+  \setunit{\addspace In:\space}%
+  \printlist{journal}%
+  \newunit\newblock
+  \printfield{volume}%
+  \newunit\newblock
+  \printfield{month}%
+  \newunit\newblock
+  \printfield{year}%
+  \newunit\newblock
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{doi}%
+  \newunit\newblock
+  \printfield{url}%
+  \finentry
+}
+
+\DeclareBibliographyDriver{inproceedings}{%
+  \printnames[bold]{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{journaltitle}%
+  \setunit{\addspace In:\space}%
+  \printlist{journal}%
+  \newunit\newblock
+  \printfield{volume}%
+  \newunit\newblock
+  \printfield{month}%
+  \newunit\newblock
+  \printfield{year}%
+  \newunit\newblock
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{doi}%
+  \newunit\newblock
+  \printfield{url}%
+  \finentry
+}
+
+\DeclareBibliographyDriver{misc}{%
+  \printnames[bold]{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{journaltitle}%
+  \setunit{\addspace In:\space}%
+  \printlist{journal}%
+  \newunit\newblock
+  \printfield{volume}%
+  \newunit\newblock
+  \printfield{month}%
+  \newunit\newblock
+  \printfield{year}%
+  \newunit\newblock
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{doi}%
+  \newunit\newblock
+  \printfield{url}%
+  \newunit\newblock
+  \printfield{note}%
+  \finentry
+}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Your main SOP content is here--e.g. including intro, past work, current work, future work, the school section, and career aspirations.
+
+% INSTRUCTIONS:
+% 1) Replace [Your Name] and [Your Website] as needed.
+% 2) Replace [Document Title] as desired (e.g., Statement of Purpose).
+% If you want yo bold your name
+
+
+
+
+                         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- EXAMPLE TEMPLATE OF HOW TO CUSTOMIZE FOR EACH SCHOOL -----------------
+\ifcase\value{schoolID}
+  % ------------------------------------------------------------------------
+  % Case 0 (no valid ID chosen)
+  % ------------------------------------------------------------------------
+  [Your introduction or statement text goes here. If no school is set, use a default text or placeholder.]
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 1: Example for UC Berkeley
+  % ------------------------------------------------------------------------
+  At the {\schoolname}, I am particularly interested in collaborating on [your research topic].
+  I would also like to connect with Prof. [Name] who specializes in [area].
+  % ... Add more details or placeholders as you wish ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 2: Stanford
+  % ------------------------------------------------------------------------
+  At {\schoolname}, I hope to work on [XYZ research], possibly in collaboration with Prof. [Name].
+  % ... Add more details or placeholders as you wish ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 3: MIT
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+  
+\or
+  % ------------------------------------------------------------------------
+  % Case 4: CMU
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+  
+\or
+  % ------------------------------------------------------------------------
+  % Case 5: Georgia Tech
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 6: NYU
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 7: Columbia
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 8: Cornell
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 9: UW
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 10: UIUC
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 11: UCSD
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\or
+  % ------------------------------------------------------------------------
+  % Case 12: Rice
+  % ------------------------------------------------------------------------
+  At {\schoolname}, ...
+
+\else
+  % ------------------------------------------------------------------------
+  % Else case: if schoolID is out of range
+  % ------------------------------------------------------------------------
+  [No valid school selected. Please set \setcounter{schoolID}{X} properly.]
+\fi
+
+% ------------------------ END OF SCHOOL-SPECIFIC TEXT ----------------------
+
+% Example of how you might add a concluding paragraph
+\textbf{Career Aspirations.} [Write your career goals or final remarks here.]
+
+\clearpage
+\printbibliography
+
+\end{document}
