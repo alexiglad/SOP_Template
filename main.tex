@@ -16,12 +16,7 @@
 % SCHOOL SELECTION LOGIC
 % --------------------------------------------------------------------------
 %
-% INSTRUCTIONS:
-% 1) Set \setcounter{schoolID}{X} to the desired school ID from the list below.
-% 2) Then, compile. The commands \schoolname and \schoolabbreviation will be
-%    set accordingly.
-% 3) The case blocks below let you customize any text you want for each school.
-%    Replace the placeholders with your own text as needed.
+
 %
 % Mappings (can add additional very easily):
 %  1 - University of California, Berkeley
@@ -217,10 +212,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Your main SOP content is here--e.g. including intro, past work, current work, future work, the school section, and career aspirations.
 
-% INSTRUCTIONS:
-% 1) Replace [Your Name] and [Your Website] as needed.
-% 2) Replace [Document Title] as desired (e.g., Statement of Purpose).
-% If you want yo bold your name
+\textbf{Instructions:}
+
+1. \textbf{Select School:} Set the integer in \verb|\setcounter{schoolID}{X}| to your desired school ID (1--12), or add schools at the top.
+
+2. \textbf{Personalize Your Name:} In the \verb|\DeclareNameFormat{bold}{...}| block, replace \verb|[YourFirstName]| and \verb|[YourLastName]| with your actual first and last name to ensure it appears in bold in references. If you do not need this feature, comment out or remove that block.
+
+3. \textbf{Update Names/Links:} Replace \verb|[Your Name]|, \verb|[Your Website]|, and \verb|[Document Title]| in the header commands with your personal information.
+
+4. \textbf{References File:} Make sure \verb|references.bib| is present in the same directory.
+
+5. \textbf{Add Your Content:} Fill in each school section with school-specific text (or add more).
+
 
 
 
@@ -239,8 +242,9 @@ Your main SOP content is here--e.g. including intro, past work, current work, fu
   % ------------------------------------------------------------------------
   % Case 1: Example for UC Berkeley
   % ------------------------------------------------------------------------
-  At the {\schoolname}, I am particularly interested in collaborating on [your research topic].
-  I would also like to connect with Prof. [Name] who specializes in [area].
+  This is an example school paragraph: \\
+  At the {\schoolname}, I am particularly interested in collaborating on [...] and Transformers \cite{vaswani2017attention}.
+  I would also like to connect with Prof. [Name] who specializes in [area]. Professor [Name] is also ...
   % ... Add more details or placeholders as you wish ...
 
 \or
